@@ -1,6 +1,6 @@
 // Dynamic function arguments with GENERICS
 
-type Event = 
+type MyEvent = 
     | {
         type: "LOG_IN";
         payload: {
@@ -11,12 +11,10 @@ type Event =
         type: "SIGN_OUT";
     };
 
-// const sendEvent = (eventType: Event["type"], payload?: any) => {}
-
-const sendEvent = <Type extends Event["type"]>(
-    ...args: Extract<Event, { type: Type }> extends { payload: infer TPayload }
-    ? [Type, TPayload]
-    : [Type]
+const sendEvent = <Type extends MyEvent["type"]>(
+    ...args: Extract<MyEvent, { type: Type }> extends { payload: infer TPayload }
+    ? [type: Type, payload: TPayload]
+    : [type: Type]
     ) => {};
 
 
@@ -27,7 +25,9 @@ sendEvent("SIGN_OUT");
 sendEvent("LOG_IN", {
     userId: "123"
 });
-sendEvent('LOG_IN', {})
+sendEvent("LOG_IN", {
+    userId: "123"
+});
 
 /**
  * Should error:
