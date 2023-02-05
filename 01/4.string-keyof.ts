@@ -30,7 +30,6 @@ sendEvent("LOG_IN", {
 });
 
 
-
 /**
  * Should error:
  */
@@ -40,6 +39,7 @@ sendEvent("LOG_IN", {
     // @ts-expect-error
     userId: 123,
 });
+// @ts-expect-error
 sendEvent("LOG_IN", {});
 // @ts-expect-error
 sendEvent("LOG_IN");
