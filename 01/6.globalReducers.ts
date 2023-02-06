@@ -24,7 +24,14 @@ declare global {
 }
 
 const userReducer: GlobalReducer< { id: number } > = (state, event) => {
-    // event.type === 'LOG_IN' ? state.id = event.id : null;
+    switch (event.type) {
+        case 'LOG_IN': {
+            return {
+                ...state,
+                id: event.id,
+            }
+        }
+    }
     return state;
 }
 
@@ -35,6 +42,12 @@ declare global {
 }
 
 type GlobalReducer<TState> = (state: TState, event: {
+    [EventType in keyof GlobalReducerEvent]: {
+        type: EventType;
+    } & GlobalReducerEvent[EventType];
+}[keyof GlobalReducerEvent]) => TState;
+
+type GlobalReducer2<TState> = (state: TState, event: {
     [EventType in keyof GlobalReducerEvent]: {
         type: EventType;
     } & GlobalReducerEvent[EventType];
