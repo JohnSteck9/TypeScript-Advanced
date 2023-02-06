@@ -46,9 +46,3 @@ type GlobalReducer<TState> = (state: TState, event: {
         type: EventType;
     } & GlobalReducerEvent[EventType];
 }[keyof GlobalReducerEvent]) => TState;
-
-type GlobalReducer2<TState> = (state: TState, event: {
-    [EventType in keyof GlobalReducerEvent]: {
-        type: EventType;
-    } & GlobalReducerEvent[EventType];
-}[keyof GlobalReducerEvent]) => TState;
