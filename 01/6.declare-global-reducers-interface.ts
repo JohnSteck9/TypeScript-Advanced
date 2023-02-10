@@ -1,4 +1,5 @@
-export {}; // indicate that the file is a module
+// Using DECLARE GLOBAL for amazing inference
+export {};
 
 // TODOS
 declare global {
@@ -12,7 +13,7 @@ declare global {
 const todosReducer: GlobalReducer<{ todos: { text: string }[] }> = (state, event) => {
     // event.type === 'ADD_TODOS' ? state.todos.push({ text: event.text }) : null;
     return state;
-}
+};
 
 // UserReducer
 declare global {
@@ -23,26 +24,28 @@ declare global {
     }
 }
 
-const userReducer: GlobalReducer< { id: number } > = (state, event) => {
+const userReducer: GlobalReducer<{ id: number }> = (state, event) => {
     switch (event.type) {
-        case 'LOG_IN': {
+        case "LOG_IN": {
             return {
                 ...state,
                 id: event.id,
-            }
+            };
         }
     }
     return state;
-}
-
+};
 
 // Types
 declare global {
     interface GlobalReducerEvent {}
 }
 
-type GlobalReducer<TState> = (state: TState, event: {
-    [EventType in keyof GlobalReducerEvent]: {
-        type: EventType;
-    } & GlobalReducerEvent[EventType];
-}[keyof GlobalReducerEvent]) => TState;
+type GlobalReducer<TState> = (
+    state: TState,
+    event: {
+        [EventType in keyof GlobalReducerEvent]: {
+            type: EventType;
+        } & GlobalReducerEvent[EventType];
+    }[keyof GlobalReducerEvent]
+) => TState;

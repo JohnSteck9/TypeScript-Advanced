@@ -1,13 +1,13 @@
 // Building LOOSE AUTOCOMPLETE with TypeScript
-declare const React: any;
+import React from "react";
 
 // type IconSize2 = 'sm' | 'xs' | Omit<string, 'sm' | 'xs'>
-type IconSize = LoseAutocomplete<'sm' | 'xs'>;
+type IconSize = LoseAutocomplete<"sm" | "xs">;
 
 /**
  * Type helper
  */
-type LoseAutocomplete<T extends string> = T | Omit<string, T>
+type LoseAutocomplete<T extends string> = T | Omit<string, T>;
 
 interface IconProps {
     size: IconSize;
@@ -20,8 +20,8 @@ const Icon = (props: IconProps) => {
 const Comp1 = () => {
     return (
         <>
-            <Icon size="" ></Icon>
-            <Icon size="something" ></Icon>
+            <Icon size=''></Icon>
+            <Icon size='something'></Icon>
         </>
-    )
-}
+    );
+};

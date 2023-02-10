@@ -1,3 +1,6 @@
+// noUncheckedIndexedAccess
+export {};
+
 const myObj: Record<string, string[]> = {};
 
 /**
@@ -6,10 +9,10 @@ const myObj: Record<string, string[]> = {};
  * fix: tsconfig.json => "noUncheckedIndexedAccess": true,
  */
 
-myObj.foo?.push('car');
+myObj.foo?.push("car");
 
 if (!myObj.smth) {
     myObj.smth = [];
 }
 
-myObj.smth.push('bar');
+myObj.smth.push("bar");
