@@ -23,15 +23,72 @@ describePerson(alex); /* Type string[] is not assignable to type [string, string
 
 ////////////////////////////////
 
-// type StringFromType<T> = T extends string ? 'string' : never
-
-// type lorem = StringFromType<'lorem ipsum'> // 'string'
-// type ten = StringFromType<10> // never
-
-type StringFromType<T> = T extends string ? "gg" : T extends boolean ? "boolean" : T extends Error ? "error" : never;
+type StringFromType<T> = T extends string
+    ? "string"
+    : T extends boolean
+        ? "boolean"
+        : T extends Error
+            ? "error"
+            : never;
 
 type lorem = StringFromType<"lorem ipsum">; // 'string'
 type isActive = StringFromType<false>; // 'boolean'
-type unassignable = StringFromType<TypeError>; // 'error'
+type unAssignable = StringFromType<TypeError>; // 'error'
 
-let ss: isActive = "boolean";
+////////////////////////////////
+
+type stringLoop = string extends null | undefined ? never : string; // string
+
+type nullLoop = null extends null | undefined ? never : null; // never
+
+type undefinedLoop = undefined extends null | undefined ? never : undefined; // never
+
+type ReturnUnion = stringLoop | nullLoop | undefinedLoop; // string
+
+////////////////////////////////
+
+type Extract<T, U> = T extends U ? T : never
+type Exclude<T, U> = T extends U ? never : T
+
+////////////////////////////////
+
+type a = ReturnType<() => void> // void
+type b = ReturnType<() => string | number> // string | number
+type c = ReturnType<() => any> // any
+
+type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
+
+// Function’s first argument:
+
+type GetFirstArgumentOfAnyFunction<T> = T extends (
+        first: infer FirstArgument,
+        ...args: any[]
+    ) => any
+    ? FirstArgument
+    : never
+
+type t1 = GetFirstArgumentOfAnyFunction<(name: string, age: number) => void> // string
+
+// Function’s second argument:
+
+type GetSecondArgumentOfAnyFunction<T> = T extends (
+        first: any,
+        second: infer SecondArgument,
+        ...args: any[]
+    ) => any
+    ? SecondArgument
+    : never
+
+type t2 = GetSecondArgumentOfAnyFunction<(name: string, age: number) => void> // number
+
+// Promise return type
+type PromiseReturnType<T> = T extends Promise<infer Return> ? Return : T
+
+type t3 = PromiseReturnType<Promise<string>> // string
+
+// Array type
+type ArrayType<T> = T extends (infer Item)[] ? Item : T
+
+type t5 = ArrayType<[string, number]> // string | number
+
+////////////////////////////////

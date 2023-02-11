@@ -3,14 +3,13 @@ export {};
 
 type MyEvent =
     | {
-          type: "LOG_IN";
-          payload: {
-              userId: string;
-          };
-      }
-    | {
-          type: "SIGN_OUT";
-      };
+    type: "LOG_IN";
+    payload: {
+        userId: string;
+    };
+} | {
+    type: "SIGN_OUT";
+}
 
 const sendEvent = <Type extends MyEvent["type"]>(
     ...args: Extract<MyEvent, { type: Type }> extends { payload: infer TPayload }

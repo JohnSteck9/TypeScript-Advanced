@@ -4,8 +4,8 @@ import React from "react";
 type PropsForm<TComponent> = TComponent extends React.FC<infer Props>
     ? Props
     : TComponent extends React.Component<infer Props>
-    ? Props
-    : never;
+        ? Props
+        : never;
 
 const MyFuncComponent = (props: { enabled: boolean }) => {
     return null;

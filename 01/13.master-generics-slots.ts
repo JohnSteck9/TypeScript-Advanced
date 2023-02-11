@@ -1,14 +1,14 @@
 // Master Generic Slots
 export {};
 
-const makeKeyMemover =
+const makeKeyRemover =
     <Key extends string>(keys: Key[]) =>
-    <Obj>(obj: Obj): Omit<Obj, Key> => {
-        return {} as any;
-    };
+        <Obj>(obj: Obj): Omit<Obj, Key> => {
+            return {} as any;
+        };
 
-const keyRemover = makeKeyMemover(["a", "b"]);
+const keyRemover = makeKeyRemover(["a", "b"]);
 
-const newObject = keyRemover({ a: 1, b: 2, c: 3 });
+const newObject = keyRemover({a: 1, b: 2, c: 3});
 
 newObject.c = 5;
